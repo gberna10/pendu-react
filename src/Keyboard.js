@@ -45,10 +45,17 @@ const Word = (props) => {
     color: "green",
   }
 
+  const style2 = {
+    color: "red",
+  }
+
 //  secretWord = computeDisplay("trafalgar","a")
   
   return(
-    <h1 style={style}>{props.Letter}</h1>
+    <div>
+      <h1 style={style}>{props.Letter}</h1>
+      <h2 style={style2}>{props.HangWordResult}</h2>
+    </div>
   );
 }
 
@@ -72,29 +79,64 @@ class Keyboard extends React.Component {
     spacing: '16',
     usedLetters: [],
     hangWord: "",
-    phrase: 'benoit'
+    phrase: 'BENOIT',
   };
 
   handleClick = (value) => {
-    this.setState({usedLetters:[...this.state.usedLetters, value]});
-  };
+    if (this.state.usedLetters.includes(value)) {
+      alert("votre lettre existe déjà");
+    } else {
+      this.setState({usedLetters:[...this.state.usedLetters, value]});
+    }
+    
+  }
+
 
   computeDisplay(phrase, usedLetters) {
-    
-    return phrase.replace(/\w/g,
-      (letter) => (usedLetters.has(letter) ? letter : '_')
-    )
+    this.state.hangWord = "";
+    phrase = phrase.split('');
+    let hangWord = [];
+    /* if (usedLetters.length > 1) {
+      usedLetters = usedLetters.reverse();
+      for (let j = 0; j < usedLetters.length; j++) {
+        if (phrase[i] === usedLetters[j]) {
+          hangWord.push(usedLetters[j]);
+        }
+      }
 
+    } */
+
+    if (usedLetters.length > 1) {
+      usedLetters = usedLetters.reverse();
+      usedLetters = usedLetters[0];
+      console.log("max le dieu ");
+    }
+
+    console.log("Joe" + usedLetters); 
+
+    for (let i = 0; i < phrase.length; i++) {
+      if (phrase[i].includes(usedLetters)) {
+        hangWord.push(phrase[i]);
+      } else {
+        hangWord.push("_");
+      }
+    }
+    console.log("hang",hangWord);
+    return 1;
+    //return hangWord.join('');
   } 
 
 
   componentDidMount() {
-    alert("base" +  this.state.usedLetters);
+    // alert("base" +  this.state.usedLetters);
+    //this.state.hangWord = this.computeDisplay(this.state.phrase, this.state.usedLetters);
     this.updateCanvas();
   }
   
   componentDidUpdate() {
-    //this.computeDisplay(this.state.phrase, this.state.usedLetters);
+    this.state.hangWord = this.computeDisplay(this.state.phrase, this.state.usedLetters);
+    alert("%% = " + this.state.hangWord);
+    //alert(this.getRandomInt(23));
     this.updateCanvas();
   }
   
@@ -118,7 +160,7 @@ class Keyboard extends React.Component {
           </Grid>
           <Grid item xs={12}>
             <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
-              <Word Letter={this.state.usedLetters} />
+              <Word Letter={this.state.usedLetters} HangWordResult={this.state.hangWord} />
             </Grid>
           </Grid>
           <Grid item xs={4}>
