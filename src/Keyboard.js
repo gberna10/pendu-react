@@ -3,13 +3,10 @@ import PropTypes from 'prop-types';
 //import Word from './Word';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
-let secretWord = "";
+
 
 function rect(props) {
   const {ctx, x, y, width, height} = props;
@@ -38,7 +35,18 @@ function rect(props) {
 //   return hangWord.join('');
 // }
 
-
+let findWord = [
+    "taureau",
+    "riz",
+    "petrole",
+    "tableau",
+    "peinture",
+    "routage",
+    "ventilateur",
+    "lampe",
+    "apache",
+    "goudron"
+]
 
 const Word = (props) => {
   const style = {
@@ -49,12 +57,17 @@ const Word = (props) => {
     color: "red",
   }
 
+  const style3 = {
+    color: "blue",
+  }
+
 //  secretWord = computeDisplay("trafalgar","a")
   
   return(
     <div>
       <h1 style={style}>{props.Letter}</h1>
       <h2 style={style2}>{props.HangWordResult}</h2>
+      <h3 style={style3}>{props.PhraseResult}</h3>
     </div>
   );
 }
@@ -78,64 +91,40 @@ class Keyboard extends React.Component {
   state = {
     spacing: '16',
     usedLetters: [],
-    hangWord: "",
-    phrase: 'BENOIT',
+    phrase: "",
+    hangWord: ""
   };
 
   handleClick = (value) => {
+    let temp = "";
     if (this.state.usedLetters.includes(value)) {
       alert("votre lettre existe déjà");
     } else {
       this.setState({usedLetters:[...this.state.usedLetters, value]});
+      temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
+      alert(temp);
+      this.setState({hangWord: temp});
     }
     
   }
 
 
   computeDisplay(phrase, usedLetters) {
-    this.state.hangWord = "";
-    phrase = phrase.split('');
-    let hangWord = [];
-    /* if (usedLetters.length > 1) {
-      usedLetters = usedLetters.reverse();
-      for (let j = 0; j < usedLetters.length; j++) {
-        if (phrase[i] === usedLetters[j]) {
-          hangWord.push(usedLetters[j]);
-        }
-      }
-
-    } */
-
-    if (usedLetters.length > 1) {
-      usedLetters = usedLetters.reverse();
-      usedLetters = usedLetters[0];
-      console.log("max le dieu ");
-    }
-
-    console.log("Joe" + usedLetters); 
-
-    for (let i = 0; i < phrase.length; i++) {
-      if (phrase[i].includes(usedLetters)) {
-        hangWord.push(phrase[i]);
-      } else {
-        hangWord.push("_");
-      }
-    }
-    console.log("hang",hangWord);
-    return 1;
-    //return hangWord.join('');
-  } 
-
+    return phrase.replace(/\w/g,
+      (letter) => (usedLetters.includes(letter) ? letter : '_')
+    );
+  }
 
   componentDidMount() {
-    // alert("base" +  this.state.usedLetters);
-    //this.state.hangWord = this.computeDisplay(this.state.phrase, this.state.usedLetters);
+    this.setState({phrase: findWord[Math.floor(Math.random() * 11)]})
+    let hangTemp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
+    console.log("1 =>" + hangTemp + "2=> " + this.state.phrase);
+    this.setState({hangWord: hangTemp});
     this.updateCanvas();
   }
   
   componentDidUpdate() {
-    this.state.hangWord = this.computeDisplay(this.state.phrase, this.state.usedLetters);
-    alert("%% = " + this.state.hangWord);
+    //state.hangWord = this.computeDisplay(this.state.phrase, this.state.usedLetters);
     //alert(this.getRandomInt(23));
     this.updateCanvas();
   }
@@ -160,7 +149,7 @@ class Keyboard extends React.Component {
           </Grid>
           <Grid item xs={12}>
             <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>
-              <Word Letter={this.state.usedLetters} HangWordResult={this.state.hangWord} />
+              <Word Letter={this.state.usedLetters} HangWordResult={this.state.hangWord} PhraseResult={this.state.phrase}/>
             </Grid>
           </Grid>
           <Grid item xs={4}>

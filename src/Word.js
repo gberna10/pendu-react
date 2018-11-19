@@ -1,28 +1,12 @@
 import React, { Component } from 'react';
 
 
-const ShowWord = (props) => {
-  return(
-    <h1>{props.Checko}</h1>
-  );
-};
 
-const InformaticWords = ['toto'];
+const InformaticWords = [''];
 
 
-function computeDisplay(phrase, usedLetters) {
-  return phrase.replace(/\w/g,
-    (letter) => (usedLetters.has(letter) ? letter : '_')
-  )
-}
 
-class Word extends Component {
-  render() {
-    return(
-      <ShowWord />
-    );
-  }
-}
+const Word
 
 
 /* for (var i = 0; i < chaine.length; i ++) {
