@@ -45,7 +45,8 @@ let findWord = [
     "ventilateur",
     "lampe",
     "apache",
-    "goudron"
+    "goudron",
+    "kangourou",
 ]
 
 const Word = (props) => {
@@ -88,21 +89,24 @@ const styles = theme => ({
 
 class Keyboard extends React.Component {
 
+  constructor( props ){
+    super( props );
+  }
+
   state = {
     spacing: '16',
-    usedLetters: [],
-    phrase: "",
+    usedLetters: [''],
+    phrase: findWord[Math.floor(Math.random() * 11)].toUpperCase(),
     hangWord: ""
   };
 
-  handleClick = (value) => {
-    let temp = "";
+  handleClick(value) {
     if (this.state.usedLetters.includes(value)) {
       alert("votre lettre existe déjà");
     } else {
       this.setState({usedLetters:[...this.state.usedLetters, value]});
-      temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
-      alert(temp);
+      console.log("used ",this.state.usedLetters," phrase = ",this.state.phrase);
+      let temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
       this.setState({hangWord: temp});
     }
     
@@ -110,22 +114,28 @@ class Keyboard extends React.Component {
 
 
   computeDisplay(phrase, usedLetters) {
+
     return phrase.replace(/\w/g,
       (letter) => (usedLetters.includes(letter) ? letter : '_')
     );
   }
 
   componentDidMount() {
-    this.setState({phrase: findWord[Math.floor(Math.random() * 11)]})
     let hangTemp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
-    console.log("1 =>" + hangTemp + "2=> " + this.state.phrase);
     this.setState({hangWord: hangTemp});
+    //this.setState({phrase: findWord[Math.floor(Math.random() * 11)]})
     this.updateCanvas();
   }
   
   componentDidUpdate() {
-    //state.hangWord = this.computeDisplay(this.state.phrase, this.state.usedLetters);
-    //alert(this.getRandomInt(23));
+    //alert(this.getRandomInt(23)); */
+
+    
+
+    /* let temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
+    this.setState({hangWord: temp}); */
+    /* let temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
+      this.setState({hangWord: temp}); */
     this.updateCanvas();
   }
   
