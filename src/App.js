@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Keyboard from './Keyboard';
-import Word from './Word';
-import Player from './Player';
 import Button from '@material-ui/core/Button';
 import './App.css';
 
