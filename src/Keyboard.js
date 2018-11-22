@@ -74,41 +74,49 @@ class Keyboard extends React.Component {
 
   state = {
     spacing: '16',
-    usedLetters: [],
+    usedLetters: new Set([]),
     phrase: findWord[Math.floor(Math.random() * 11)].toUpperCase(),
     hangWord: "",
     error: 7
   };
 
   handleClick(value) {
-    if (this.state.usedLetters.indexOf(value) === 1) {
-      alert("votre lettre existe déjà");
-    } else {
-      this.setState({usedLetters:this.state.usedLetters.push(value)});
-      console.log(this.state.usedLetters);
-      let verify = this.verifyWord(this.state.phrase, value);
-      if (verify === true) {
-        let temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
-        this.setState({hangWord: temp});
+    //console.log("caca = ", this.state.usedLetters);
+
+      if (this.state.usedLetters.has(value)) {
+        alert("votre lettre existe déjà");
+
       } else {
-        this.setState({error: this.state.error - 1});
-      }
-      
-    }
-    
+        //this.setState({usedLetters:[...this.state.usedLetters, value]});
+        this.setState({ usedLetters: this.state.usedLetters.add(value) })
+        let verify = this.verifyWord(this.state.phrase, value);
+        if (verify === true) {
+          let temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
+          this.setState({hangWord: temp});
+        } else {
+          this.setState({error: this.state.error - 1});
+        }
+        
+      } 
   }
+  
+
 
   verifyWord(phrase, letter) {
-    if (phrase.includes(letter)) {
+    let temp = [];
+    temp = phrase.split('');
+    if (temp.includes(letter)) {
       return true;
     } else {
       return false;
     }
   }
+
+
   computeDisplay(phrase, usedLetters) {
 
     return phrase.replace(/\w/g,
-      (letter) => (usedLetters.includes(letter) ? letter + ' ' : '_ ')
+      (letter) => (usedLetters.has(letter) ? letter + ' ' : '_ ')
     );
   }
 
