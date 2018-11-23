@@ -70,7 +70,7 @@ const styles = theme => ({
 });
 
 
-class Keyboard extends React.Component {
+class Game extends React.Component {
 
   state = {
     spacing: '16',
@@ -79,6 +79,7 @@ class Keyboard extends React.Component {
     hangWord: "",
     error: 7
   };
+
 
   handleClick(value) {
     //console.log("caca = ", this.state.usedLetters);
@@ -127,20 +128,61 @@ class Keyboard extends React.Component {
   }
   
   componentDidUpdate() {
-    //alert(this.getRandomInt(23)); */
 
-    
+    if (this.state.error === 0) {
+      alert("arlette");
+    }
 
-    /* let temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
-    this.setState({hangWord: temp}); */
-    /* let temp = this.computeDisplay(this.state.phrase, this.state.usedLetters);
-      this.setState({hangWord: temp}); */
     this.updateCanvas();
   }
   
   updateCanvas() {
-    const ctx = this.refs.canvas.getContext('2d');
-    ctx.clearRect(0,0, 300, 300);
+    var ctx = this.refs.canvas.getContext('2d');
+
+    switch(this.state.error) {
+      case 6:
+        ctx.beginPath();
+        ctx.moveTo(50, 250);
+        ctx.lineTo(150, 250);
+        ctx.stroke();
+        ctx.closePath();
+        break;
+      case 5:
+        ctx.beginPath();
+        ctx.moveTo(100, 50);
+        ctx.lineTo(100, 250);
+        ctx.stroke();
+        ctx.closePath();
+        break;
+      case 4:
+        ctx.beginPath();
+        ctx.moveTo(100, 50);
+        ctx.lineTo(200, 50);
+        ctx.stroke();
+        ctx.closePath();
+        break;
+      case 3:
+        ctx.beginPath();
+        ctx.moveTo(100,70);
+        ctx.lineTo(130, 50);
+        ctx.stroke();
+        ctx.closePath();
+        break;
+      case 2:
+        alert("gogo");
+
+    } 
+    
+
+    
+
+    
+
+    
+
+
+    
+
     // draw children “components”
     //rect({ctx, x: 10, y: 10, width: 50, height: 50});
     //rect({ctx, x: 110, y: 110, width: 50, height: 50});
@@ -149,12 +191,14 @@ class Keyboard extends React.Component {
   render() {
     const { classes } = this.props;
     const { spacing } = this.state;
-
+    const stylingCanvas = {
+      background: "AliceBlue",
+    }
     return (
         
         <Grid container className={classes.root} justify="center" spacing={24}>
           <Grid item xs={4}>
-            <canvas ref="canvas" width={300} height={300}/>
+            <canvas style={stylingCanvas} ref="canvas" width={300} height={300}/>
           </Grid>
           <Grid item xs={12}>
             <Grid container className={classes.demo} justify="center" spacing={Number(spacing)}>

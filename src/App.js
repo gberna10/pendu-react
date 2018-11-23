@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Keyboard from './Keyboard';
+import Game from './Game';
 import Button from '@material-ui/core/Button';
 import './App.css';
 
@@ -12,7 +12,7 @@ import './App.css';
 class App extends Component {
   
   state = {
-    mainPage: 'player',
+    mainPage: 'game',
   };
 
   changeMainPage = (page) => {
@@ -26,10 +26,10 @@ class App extends Component {
       return (
         <Button onClick={() => this.changeMainPage('search')}>Valider Joueur</Button>
       );
-    } else if (this.state.mainPage === 'search') {
+    } else if (this.state.mainPage === 'game') {
       return (
         <React.Fragment>
-          <Keyboard  />
+          <Game  />
         </React.Fragment>
         
       );
