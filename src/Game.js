@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import CanvasError from './includes/CanvasError';
 
 
 
@@ -138,54 +139,7 @@ class Game extends React.Component {
   
   updateCanvas() {
     var ctx = this.refs.canvas.getContext('2d');
-
-    switch(this.state.error) {
-      case 6:
-        ctx.beginPath();
-        ctx.moveTo(50, 250);
-        ctx.lineTo(150, 250);
-        ctx.stroke();
-        ctx.closePath();
-        break;
-      case 5:
-        ctx.beginPath();
-        ctx.moveTo(100, 50);
-        ctx.lineTo(100, 250);
-        ctx.stroke();
-        ctx.closePath();
-        break;
-      case 4:
-        ctx.beginPath();
-        ctx.moveTo(100, 50);
-        ctx.lineTo(200, 50);
-        ctx.stroke();
-        ctx.closePath();
-        break;
-      case 3:
-        ctx.beginPath();
-        ctx.moveTo(100,70);
-        ctx.lineTo(130, 50);
-        ctx.stroke();
-        ctx.closePath();
-        break;
-      case 2:
-        alert("gogo");
-
-    } 
-    
-
-    
-
-    
-
-    
-
-
-    
-
-    // draw children “components”
-    //rect({ctx, x: 10, y: 10, width: 50, height: 50});
-    //rect({ctx, x: 110, y: 110, width: 50, height: 50});
+    CanvasError.getCanvas(ctx, this.state.error);
   }
 
   render() {
@@ -220,8 +174,8 @@ class Game extends React.Component {
   }
 }
 
-Keyboard.propTypes = {
+Game.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Keyboard);
+export default withStyles(styles)(Game);
