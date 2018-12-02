@@ -5,7 +5,6 @@ class CanvasError {
     static getCanvas(ctx, error) {
         switch(error) {
             case 7:
-              console.log("kika 7");
               ctx.beginPath();
               ctx.moveTo(50, 250);
               ctx.lineTo(150, 250);
@@ -13,7 +12,6 @@ class CanvasError {
               ctx.closePath();
               break;
             case 6:
-              console.log("kika 6");
               ctx.beginPath();
               ctx.moveTo(100, 50);
               ctx.lineTo(100, 250);
@@ -21,7 +19,6 @@ class CanvasError {
               ctx.closePath();
               break;
             case 5:
-            console.log("kika 5");
               ctx.beginPath();
               ctx.moveTo(100, 50);
               ctx.lineTo(200, 50);
@@ -29,7 +26,6 @@ class CanvasError {
               ctx.closePath();
               break;
             case 4:
-            console.log("kika 4");
               ctx.beginPath();
               ctx.moveTo(100,70);
               ctx.lineTo(130, 50);
@@ -37,7 +33,6 @@ class CanvasError {
               ctx.closePath();
               break;
             case 3:
-            console.log("kika 3");
               ctx.beginPath();
               ctx.moveTo(180, 50);
               ctx.lineTo(180, 90);
@@ -45,7 +40,6 @@ class CanvasError {
               ctx.closePath();
               break;
             case 2:
-            console.log("kika 2");
               ctx.beginPath();
               ctx.arc(180, 108, 17, 0, 2 * Math.PI);
               ctx.moveTo(180, 124);
@@ -60,7 +54,6 @@ class CanvasError {
               ctx.closePath();
               break;
             case 1:
-            console.log("kika 1");
               ctx.beginPath();
               ctx.moveTo(176, 104);
               ctx.lineTo(171, 109);
